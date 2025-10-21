@@ -4,6 +4,7 @@
 
 package com.github.simonsagstetter.products;
 
+import com.github.simonsagstetter.orders.OrderListRepo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -160,6 +161,28 @@ class ProductRepoTest {
             productRepo.removeProduct(id);
 
             assertEquals(products, productRepo.getAllProducts());
+        }
+
+        @Test
+        @DisplayName("removeProducts -> should stay same list of products -> when called with invalid ids")
+        void removeProducts_ShouldStaySameListOfOrders_WhenCalledWithInvalidIds(){
+            ProductRepo productRepo = new ProductRepo(products);
+            List<String> orderIds = List.of("Dummy1Id", "Dummy2Id");
+
+            productRepo.removeProducts(orderIds);
+
+            assertEquals(products, productRepo.getAllProducts());
+        }
+
+        @Test
+        @DisplayName("removeProducts -> should remove products from products list -> when called with valid ids")
+        void removeProducts_ShouldRemoveOrdersFromOrdersList_WhenCalledWithValidIds(){
+            ProductRepo productRepo = new ProductRepo(product);
+            List<String> orderIds = List.of(product.id());
+
+            productRepo.removeProducts(orderIds);
+
+            assertTrue(productRepo.getAllProducts().isEmpty());
         }
 
     }

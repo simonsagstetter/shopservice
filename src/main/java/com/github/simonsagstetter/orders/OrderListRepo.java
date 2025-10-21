@@ -45,5 +45,10 @@ public class OrderListRepo {
             this.orders.remove(order);
         }
     }
+    public void removeOrders(List<String> orderIds){
+        for(String id : orderIds){
+            removeOrder(id);
+        }
+    }
 
 }
