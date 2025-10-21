@@ -16,9 +16,13 @@ public class ShopService {
     private final ProductRepo productRepo;
     private final OrderListRepo orderListRepo;
 
-    public static String getNewOrderId(){
+    private static String getNewOrderId(){
         String number = String.format("%03d", orderSequence++);
         return "O" + number;
+    }
+
+    private static void resetOrderSequence(){
+        ShopService.orderSequence = 1;
     }
 
     public ShopService(ProductRepo productRepo, OrderListRepo orderListRepo) {

@@ -29,6 +29,8 @@ class ShopServiceTest {
     public final static List<Product> products = new ArrayList<>();
     public final static List<String> productIds = new ArrayList<>();
     public static Method productExists;
+    public static Method getNewOrderId;
+    public static Method resetOrderSequence;
 
     @BeforeAll
     @DisplayName("Setup -> create products for productRepo")
@@ -123,6 +125,42 @@ class ShopServiceTest {
                 boolean actual = (boolean) productExists.invoke(shopService, "test-id");
 
                 assertFalse(actual);
+
+            } catch (IllegalAccessException | InvocationTargetException error) {
+                throw new RuntimeException(error);
+            }
+        }
+
+    }
+
+    @Nested
+    @DisplayName("getNewOrderId test methods")
+    class GetNewOrderIdTests {
+
+        @BeforeAll
+        @DisplayName("Modifying the access modifier of getNewOrderId")
+        static void modifyMethodAccess(){
+            try {
+                getNewOrderId = ShopService.class.getDeclaredMethod("getNewOrderId");
+                getNewOrderId.setAccessible(true);
+                resetOrderSequence = ShopService.class.getDeclaredMethod("resetOrderSequence");
+                resetOrderSequence.setAccessible(true);
+
+            } catch (NoSuchMethodException | InaccessibleObjectException error){
+                throw new RuntimeException(error);
+            }
+        }
+
+        @Test
+        @DisplayName("productExists -> should return true -> when called with existing product")
+        void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct(){
+            try {
+                resetOrderSequence.invoke(shopService);
+
+                String expected = "O001";
+                String actual = (String) getNewOrderId.invoke(shopService);
+
+                assertEquals(expected, actual);
 
             } catch (IllegalAccessException | InvocationTargetException error) {
                 throw new RuntimeException(error);
