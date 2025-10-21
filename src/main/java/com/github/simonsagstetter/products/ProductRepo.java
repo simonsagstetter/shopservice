@@ -47,5 +47,11 @@ public class ProductRepo {
         }
     }
 
+    public void removeProducts(List<String> productIds){
+        for(String id: productIds){
+            this.removeProduct(id);
+        }
+    }
+
 }
 

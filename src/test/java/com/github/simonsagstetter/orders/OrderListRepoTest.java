@@ -144,23 +144,45 @@ class OrderListRepoTest {
         @Test
         @DisplayName("removeOrder -> should remove order from order list -> when called with a valid id")
         void removeOrder_ShouldRemoveOrderFromOrderList_WhenCalledWitAValidId(){
-            OrderListRepo productRepo = new OrderListRepo(order);
-            productRepo.removeOrder(order.id());
+            OrderListRepo orderListRepo = new OrderListRepo(order);
+            orderListRepo.removeOrder(order.id());
 
-            Order p = productRepo.getOrder(order.id());
-            assertTrue(productRepo.getAllOrders().isEmpty());
+            Order p = orderListRepo.getOrder(order.id());
+            assertTrue(orderListRepo.getAllOrders().isEmpty());
             assertNull(p);
         }
 
         @Test
         @DisplayName("removeOrder -> should stay same list of orders -> when called with an invalid id")
         void removeOrder_ShouldStaySameListOfOrders_WhenCalledWitAnInvalidId(){
-            OrderListRepo productRepo = new OrderListRepo(orders);
+            OrderListRepo orderListRepo = new OrderListRepo(orders);
             String id = "DUMMYID";
 
-            productRepo.removeOrder(id);
+            orderListRepo.removeOrder(id);
 
-            assertEquals(orders, productRepo.getAllOrders());
+            assertEquals(orders, orderListRepo.getAllOrders());
+        }
+
+        @Test
+        @DisplayName("removeOrders -> should stay same list of orders -> when called with invalid ids")
+        void removeOrders_ShouldStaySameListOfOrders_WhenCalledWithInvalidIds(){
+            OrderListRepo orderListRepo = new OrderListRepo(orders);
+            List<String> orderIds = List.of("Dummy1Id", "Dummy2Id");
+
+            orderListRepo.removeOrders(orderIds);
+
+            assertEquals(orders, orderListRepo.getAllOrders());
+        }
+
+        @Test
+        @DisplayName("removeOrders -> should remove orders from orders list -> when called with valid ids")
+        void removeOrders_ShouldRemoveOrdersFromOrdersList_WhenCalledWithValidIds(){
+            OrderListRepo orderListRepo = new OrderListRepo(order);
+            List<String> orderIds = List.of(order.id());
+
+            orderListRepo.removeOrders(orderIds);
+
+            assertTrue(orderListRepo.getAllOrders().isEmpty());
         }
 
     }
