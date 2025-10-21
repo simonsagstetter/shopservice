@@ -41,7 +41,7 @@ class ProductRepoTest {
 
             ProductRepo productRepo = new ProductRepo();
 
-            List<Product> actual = productRepo.getProducts();
+            List<Product> actual = productRepo.getAllProducts();
 
             assertEquals(expected, actual);
         }
@@ -54,7 +54,7 @@ class ProductRepoTest {
 
             ProductRepo productRepo = new ProductRepo(product);
 
-            List<Product> actual = productRepo.getProducts();
+            List<Product> actual = productRepo.getAllProducts();
 
             assertEquals(expected, actual);
         }
@@ -64,7 +64,7 @@ class ProductRepoTest {
         void productRepo_ShouldReturnProductList_WhenCalledWithProducts(){
             ProductRepo productRepo = new ProductRepo(products);
 
-            List<Product> actual = productRepo.getProducts();
+            List<Product> actual = productRepo.getAllProducts();
 
             assertEquals(products, actual);
         }
@@ -84,7 +84,7 @@ class ProductRepoTest {
 
             productRepo.addProduct(product);
 
-            assertEquals(expected, productRepo.getProducts());
+            assertEquals(expected, productRepo.getAllProducts());
         }
 
         @Test
@@ -94,7 +94,7 @@ class ProductRepoTest {
 
             productRepo.addProduct(products);
 
-            assertEquals(products, productRepo.getProducts());
+            assertEquals(products, productRepo.getAllProducts());
         }
 
     }
@@ -126,12 +126,12 @@ class ProductRepoTest {
         }
 
         @Test
-        @DisplayName("getProducts -> should return a list of product -> when products were added before")
-        void getProducts_ShouldReturnListOfProducts_WhenProductsWereAddedBefore(){
+        @DisplayName("getAllProducts -> should return a list of product -> when products were added before")
+        void getAllProducts_ShouldReturnListOfProducts_WhenProductsWereAddedBefore(){
             ProductRepo productRepo = new ProductRepo(products);
 
-            assertFalse(productRepo.getProducts().isEmpty());
-            assertEquals(products, productRepo.getProducts());
+            assertFalse(productRepo.getAllProducts().isEmpty());
+            assertEquals(products, productRepo.getAllProducts());
         }
 
     }
@@ -147,7 +147,7 @@ class ProductRepoTest {
             productRepo.removeProduct(product.id());
 
             Product p = productRepo.getProduct(product.id());
-            assertTrue(productRepo.getProducts().isEmpty());
+            assertTrue(productRepo.getAllProducts().isEmpty());
             assertNull(p);
         }
 
@@ -159,7 +159,7 @@ class ProductRepoTest {
 
             productRepo.removeProduct(id);
 
-            assertEquals(products, productRepo.getProducts());
+            assertEquals(products, productRepo.getAllProducts());
         }
 
     }
