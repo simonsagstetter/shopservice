@@ -30,13 +30,13 @@ public class ProductRepo {
     }
 
     public Product getProduct(String id){
-        for(Product p: this.products){
+        for(Product p: this.getAllProducts()){
             if(p.id().equals(id))return p;
         }
         return null;
     }
 
-    public List<Product> getProducts(){
+    public List<Product> getAllProducts(){
         return this.products;
     }
 
