@@ -4,20 +4,24 @@
 
 package com.github.simonsagstetter.orders;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public interface OrderRepo {
 
-    public void addOrder(Order order);
+    void addOrder(Order order);
 
-    public void addOrder(List<Order> orders);
+    default void addOrder(List<Order> orders){}
 
-    public List<Order> getAllOrders();
+    default void addOrder(HashMap<String, Order> orders){}
 
-    public Order getOrder(String id);
+    List<Order> getAllOrders();
 
-    public void removeOrder(String id);
+    Order getOrder(String id);
 
-    public void removeOrders(List<String> ids);
+    void removeOrder(String id);
+
+    void removeOrders(Set<String> ids);
 
 }
