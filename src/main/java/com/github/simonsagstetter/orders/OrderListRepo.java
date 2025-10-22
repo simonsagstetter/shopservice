@@ -6,6 +6,7 @@ package com.github.simonsagstetter.orders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class OrderListRepo implements OrderRepo {
 
@@ -21,18 +22,22 @@ public class OrderListRepo implements OrderRepo {
         this.addOrder(orders);
     }
 
+    @Override
     public void addOrder(Order order){
         this.orders.add(order);
     }
 
+    @Override
     public void addOrder(List<Order> orders){
         this.orders.addAll(orders);
     }
 
+    @Override
     public List<Order> getAllOrders(){
         return this.orders;
     }
 
+    @Override
     public Order getOrder(String id){
         for(Order order: this.getAllOrders()){
             if(order.id().equals(id))return order;
@@ -40,6 +45,7 @@ public class OrderListRepo implements OrderRepo {
         return null;
     }
 
+    @Override
     public void removeOrder(String id){
         Order order = this.getOrder(id);
         if(order != null){
@@ -47,9 +53,10 @@ public class OrderListRepo implements OrderRepo {
         }
     }
 
-    public void removeOrders(List<String> orderIds){
-        for(String id : orderIds){
-            removeOrder(id);
+    @Override
+    public void removeOrders(Set<String> ids){
+        for(String id : ids){
+            this.removeOrder(id);
         }
     }
 

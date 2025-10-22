@@ -5,7 +5,7 @@
 package com.github.simonsagstetter;
 
 import com.github.simonsagstetter.orders.Order;
-import com.github.simonsagstetter.orders.OrderListRepo;
+import com.github.simonsagstetter.orders.OrderRepo;
 import com.github.simonsagstetter.products.ProductRepo;
 
 import java.util.List;
@@ -14,10 +14,10 @@ public class ShopService {
 
     private static int orderSequence = 1;
     private final ProductRepo productRepo;
-    private final OrderListRepo orderListRepo;
+    private final OrderRepo orderRepo;
 
     private static String getNewOrderId(){
-        String number = String.format("%03d", orderSequence++);
+        String number = String.format("%03d", ShopService.orderSequence++);
         return "O" + number;
     }
 
@@ -25,9 +25,9 @@ public class ShopService {
         ShopService.orderSequence = 1;
     }
 
-    public ShopService(ProductRepo productRepo, OrderListRepo orderListRepo) {
+    public ShopService(ProductRepo productRepo, OrderRepo orderRepo) {
         this.productRepo = productRepo;
-        this.orderListRepo = orderListRepo;
+        this.orderRepo = orderRepo;
     }
 
     public Order placeOrder(List<String> productIds){
@@ -37,7 +37,7 @@ public class ShopService {
             if(!this.productExists(productId))return null;
         }
         Order order = new Order(ShopService.getNewOrderId(),productIds);
-        this.orderListRepo.addOrder(order);
+        this.orderRepo.addOrder(order);
 
         return order;
     }
