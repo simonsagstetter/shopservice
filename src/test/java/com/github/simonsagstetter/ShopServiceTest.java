@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
@@ -38,7 +39,7 @@ class ShopServiceTest {
     @BeforeAll
     @DisplayName("Setup -> create products for productRepo")
     static void setup(){
-        products.addAll(List.of(
+        products.addAll(Set.of(
                 new Product("4260524580051", "Ettes Aufstrich - Curry Ananas - vegan", new BigDecimal("1.59")),
                 new Product("8076809572569", "\tgrünes Pesto Basilico vegan", new BigDecimal("3.75"))
         ));
