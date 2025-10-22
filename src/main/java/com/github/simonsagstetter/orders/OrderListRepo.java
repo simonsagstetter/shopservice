@@ -7,7 +7,8 @@ package com.github.simonsagstetter.orders;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderListRepo {
+public class OrderListRepo implements OrderRepo {
+
     private final List<Order> orders = new ArrayList<>();
 
     public OrderListRepo(){}
@@ -45,6 +46,7 @@ public class OrderListRepo {
             this.orders.remove(order);
         }
     }
+
     public void removeOrders(List<String> orderIds){
         for(String id : orderIds){
             removeOrder(id);
