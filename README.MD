@@ -163,19 +163,3 @@ public class Main {
 }
 
 ```
-
-### CLI
-*Comile and execute com.github.simonsagstetter.Main class*
-```shell
-   
-```
-
-#### Example
-
-```shell
-   
-```
-
-## Additional Information
-
-This project includes the following bonus packages:
