@@ -13,45 +13,46 @@ public class OrderMapRepo implements OrderRepo {
 
     private final HashMap<String, Order> orders = new HashMap<>();
 
-    public OrderMapRepo(){}
-
-    public OrderMapRepo(Order order){
-        this.addOrder(order);
+    public OrderMapRepo() {
     }
 
-    public OrderMapRepo(HashMap<String, Order> orders){
-        this.addOrder(orders);
+    public OrderMapRepo( Order order ) {
+        this.addOrder( order );
     }
 
-    @Override
-    public void addOrder(Order order) {
-        this.orders.put(order.id(), order);
+    public OrderMapRepo( HashMap<String, Order> orders ) {
+        this.addOrder( orders );
     }
 
     @Override
-    public void addOrder(HashMap<String, Order> orders) {
-        this.orders.putAll(orders);
+    public void addOrder( Order order ) {
+        this.orders.put( order.id(), order );
+    }
+
+    @Override
+    public void addOrder( HashMap<String, Order> orders ) {
+        this.orders.putAll( orders );
     }
 
     @Override
     public List<Order> getAllOrders() {
-        return new ArrayList<>(this.orders.values());
+        return new ArrayList<>( this.orders.values() );
     }
 
     @Override
-    public Order getOrder(String id) {
-        return this.orders.get(id);
+    public Order getOrder( String id ) {
+        return this.orders.get( id );
     }
 
     @Override
-    public void removeOrder(String id) {
-        this.orders.remove(id);
+    public void removeOrder( String id ) {
+        this.orders.remove( id );
     }
 
     @Override
-    public void removeOrders(Set<String> ids) {
-        for(String id : ids){
-            this.removeOrder(id);
+    public void removeOrders( Set<String> ids ) {
+        for ( String id : ids ) {
+            this.removeOrder( id );
         }
     }
 }

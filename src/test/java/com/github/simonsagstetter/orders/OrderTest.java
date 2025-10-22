@@ -15,14 +15,14 @@ class OrderTest {
 
     @Test
     @DisplayName("Order -> should return Order with correct values -> when called with same values")
-    void Order_ShouldReturnOrderWithCorrectValues_WhenCalledWithSameValues(){
+    void Order_ShouldReturnOrderWithCorrectValues_WhenCalledWithSameValues() {
         String id = "1232145";
-        List<String> productIds = List.of("4005500087151", "4305500087421");
+        List<String> productIds = List.of( "4005500087151", "4305500087421" );
 
-        Order p = new Order("1232145", productIds);
+        Order p = new Order( "1232145", productIds );
 
-        assertEquals(id, p.id());
-        assertEquals(productIds, p.productIds());
+        assertEquals( id, p.id() );
+        assertEquals( productIds, p.productIds() );
     }
 
 }

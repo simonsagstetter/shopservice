@@ -8,5 +8,5 @@ import com.github.simonsagstetter.products.Product;
 
 import java.util.List;
 
-public record Order(String id, List<String> productIds) {
+public record Order( String id, List<String> productIds ) {
 }

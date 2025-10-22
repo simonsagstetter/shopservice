@@ -16,16 +16,16 @@ class ProductTest {
 
     @Test
     @DisplayName("Product -> should return Product with correct values -> when called with same values")
-    void Product_ShouldReturnProductWithCorrectValues_WhenCalledWithSameValues(){
+    void Product_ShouldReturnProductWithCorrectValues_WhenCalledWithSameValues() {
         String id = "4005500087151";
         String name = "Product";
-        BigDecimal bd = new BigDecimal("50");
+        BigDecimal bd = new BigDecimal( "50" );
 
-        Product p = new Product("4005500087151","Product", new BigDecimal("50"));
+        Product p = new Product( "4005500087151", "Product", new BigDecimal( "50" ) );
 
-        assertEquals(id, p.id());
-        assertEquals(name, p.name());
-        assertEquals(bd, p.price());
+        assertEquals( id, p.id() );
+        assertEquals( name, p.name() );
+        assertEquals( bd, p.price() );
     }
 
 

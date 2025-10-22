@@ -24,11 +24,11 @@ class ProductRepoTest {
 
     @BeforeAll
     @DisplayName("Create a product records")
-    static void setup(){
-        ProductRepoTest.product = new Product("4005500087151","Smartphone Casing", new BigDecimal("1.99"));
+    static void setup() {
+        ProductRepoTest.product = new Product( "4005500087151", "Smartphone Casing", new BigDecimal( "1.99" ) );
 
-        for(int i=0; i < 10; i++){
-            products.add(new Product("400550008715" + i,"Product " + i, new BigDecimal(i)));
+        for ( int i = 0; i < 10; i++ ) {
+            products.add( new Product( "400550008715" + i, "Product " + i, new BigDecimal( i ) ) );
         }
     }
 
@@ -38,37 +38,37 @@ class ProductRepoTest {
 
         @Test
         @DisplayName("ProductRepo -> should return empty product list -> when called without arguments")
-        void productRepo_ShouldReturnEmptyProductList_WhenCalledWithoutArguments(){
+        void productRepo_ShouldReturnEmptyProductList_WhenCalledWithoutArguments() {
             List<Product> expected = new ArrayList<>();
 
             ProductRepo productRepo = new ProductRepo();
 
             List<Product> actual = productRepo.getAllProducts();
 
-            assertEquals(expected, actual);
+            assertEquals( expected, actual );
         }
 
         @Test
         @DisplayName("ProductRepo -> should return one product in product list -> when called with one product")
-        void productRepo_ShouldReturnProductListWithOneProduct_WhenCalledWithOneProduct(){
+        void productRepo_ShouldReturnProductListWithOneProduct_WhenCalledWithOneProduct() {
             List<Product> expected = new ArrayList<>();
-            expected.add(product);
+            expected.add( product );
 
-            ProductRepo productRepo = new ProductRepo(product);
+            ProductRepo productRepo = new ProductRepo( product );
 
             List<Product> actual = productRepo.getAllProducts();
 
-            assertEquals(expected, actual);
+            assertEquals( expected, actual );
         }
 
         @Test
         @DisplayName("ProductRepo -> should return product list -> when called with products")
-        void productRepo_ShouldReturnProductList_WhenCalledWithProducts(){
-            ProductRepo productRepo = new ProductRepo(products);
+        void productRepo_ShouldReturnProductList_WhenCalledWithProducts() {
+            ProductRepo productRepo = new ProductRepo( products );
 
             List<Product> actual = productRepo.getAllProducts();
 
-            assertEquals(products, actual);
+            assertEquals( products, actual );
         }
 
     }
@@ -79,24 +79,24 @@ class ProductRepoTest {
 
         @Test
         @DisplayName("addProduct -> should add single product to products list -> when called with single product")
-        void addProduct_ShouldAddSingleProductToProductList_WhenCalledWithSingleProduct(){
+        void addProduct_ShouldAddSingleProductToProductList_WhenCalledWithSingleProduct() {
             ProductRepo productRepo = new ProductRepo();
 
-            List<Product> expected = List.of(product);
+            List<Product> expected = List.of( product );
 
-            productRepo.addProduct(product);
+            productRepo.addProduct( product );
 
-            assertEquals(expected, productRepo.getAllProducts());
+            assertEquals( expected, productRepo.getAllProducts() );
         }
 
         @Test
         @DisplayName("addProduct -> should add several product to products list -> when called with product list")
-        void addProduct_ShouldAddSeveralProductToProductList_WhenCalledWithProductList(){
+        void addProduct_ShouldAddSeveralProductToProductList_WhenCalledWithProductList() {
             ProductRepo productRepo = new ProductRepo();
 
-            productRepo.addProduct(products);
+            productRepo.addProduct( products );
 
-            assertEquals(products, productRepo.getAllProducts());
+            assertEquals( products, productRepo.getAllProducts() );
         }
 
     }
@@ -107,33 +107,33 @@ class ProductRepoTest {
 
         @Test
         @DisplayName("getProduct -> should return a single product -> when called with a valid id")
-        void getProduct_ShouldReturnASingleProduct_WhenCalledWitAValidId(){
-            ProductRepo productRepo = new ProductRepo(product);
+        void getProduct_ShouldReturnASingleProduct_WhenCalledWitAValidId() {
+            ProductRepo productRepo = new ProductRepo( product );
             String id = product.id();
 
-            Product p = productRepo.getProduct(id);
+            Product p = productRepo.getProduct( id );
 
-            assertEquals(p, product);
+            assertEquals( p, product );
         }
 
         @Test
         @DisplayName("getProduct -> should return null -> when called with an invalid id")
-        void getProduct_ShouldReturnNull_WhenCalledWitAnInvalidId(){
-            ProductRepo productRepo = new ProductRepo(product);
+        void getProduct_ShouldReturnNull_WhenCalledWitAnInvalidId() {
+            ProductRepo productRepo = new ProductRepo( product );
             String id = "DUMMYID";
 
-            Product p = productRepo.getProduct(id);
+            Product p = productRepo.getProduct( id );
 
-            assertNull(p);
+            assertNull( p );
         }
 
         @Test
         @DisplayName("getAllProducts -> should return a list of product -> when products were added before")
-        void getAllProducts_ShouldReturnListOfProducts_WhenProductsWereAddedBefore(){
-            ProductRepo productRepo = new ProductRepo(products);
+        void getAllProducts_ShouldReturnListOfProducts_WhenProductsWereAddedBefore() {
+            ProductRepo productRepo = new ProductRepo( products );
 
-            assertFalse(productRepo.getAllProducts().isEmpty());
-            assertEquals(products, productRepo.getAllProducts());
+            assertFalse( productRepo.getAllProducts().isEmpty() );
+            assertEquals( products, productRepo.getAllProducts() );
         }
 
     }
@@ -144,46 +144,46 @@ class ProductRepoTest {
 
         @Test
         @DisplayName("removeProduct -> should remove product from product list -> when called with a valid id")
-        void removeProduct_ShouldRemoveProductFromProductList_WhenCalledWitAValidId(){
-            ProductRepo productRepo = new ProductRepo(product);
-            productRepo.removeProduct(product.id());
+        void removeProduct_ShouldRemoveProductFromProductList_WhenCalledWitAValidId() {
+            ProductRepo productRepo = new ProductRepo( product );
+            productRepo.removeProduct( product.id() );
 
-            Product p = productRepo.getProduct(product.id());
-            assertTrue(productRepo.getAllProducts().isEmpty());
-            assertNull(p);
+            Product p = productRepo.getProduct( product.id() );
+            assertTrue( productRepo.getAllProducts().isEmpty() );
+            assertNull( p );
         }
 
         @Test
         @DisplayName("removeProduct -> should stay same list of products -> when called with an invalid id")
-        void removeProduct_ShouldStaySameListOfProducts_WhenCalledWitAnInvalidId(){
-            ProductRepo productRepo = new ProductRepo(products);
+        void removeProduct_ShouldStaySameListOfProducts_WhenCalledWitAnInvalidId() {
+            ProductRepo productRepo = new ProductRepo( products );
             String id = "DUMMYID";
 
-            productRepo.removeProduct(id);
+            productRepo.removeProduct( id );
 
-            assertEquals(products, productRepo.getAllProducts());
+            assertEquals( products, productRepo.getAllProducts() );
         }
 
         @Test
         @DisplayName("removeProducts -> should stay same list of products -> when called with invalid ids")
-        void removeProducts_ShouldStaySameListOfOrders_WhenCalledWithInvalidIds(){
-            ProductRepo productRepo = new ProductRepo(products);
-            Set<String> orderIds = Set.of("Dummy1Id", "Dummy2Id");
+        void removeProducts_ShouldStaySameListOfOrders_WhenCalledWithInvalidIds() {
+            ProductRepo productRepo = new ProductRepo( products );
+            Set<String> orderIds = Set.of( "Dummy1Id", "Dummy2Id" );
 
-            productRepo.removeProducts(orderIds);
+            productRepo.removeProducts( orderIds );
 
-            assertEquals(products, productRepo.getAllProducts());
+            assertEquals( products, productRepo.getAllProducts() );
         }
 
         @Test
         @DisplayName("removeProducts -> should remove products from products list -> when called with valid ids")
-        void removeProducts_ShouldRemoveOrdersFromOrdersList_WhenCalledWithValidIds(){
-            ProductRepo productRepo = new ProductRepo(product);
-            Set<String> orderIds = Set.of(product.id());
+        void removeProducts_ShouldRemoveOrdersFromOrdersList_WhenCalledWithValidIds() {
+            ProductRepo productRepo = new ProductRepo( product );
+            Set<String> orderIds = Set.of( product.id() );
 
-            productRepo.removeProducts(orderIds);
+            productRepo.removeProducts( orderIds );
 
-            assertTrue(productRepo.getAllProducts().isEmpty());
+            assertTrue( productRepo.getAllProducts().isEmpty() );
         }
 
     }

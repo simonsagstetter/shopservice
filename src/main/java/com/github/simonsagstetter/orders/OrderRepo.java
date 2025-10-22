@@ -10,18 +10,20 @@ import java.util.Set;
 
 public interface OrderRepo {
 
-    void addOrder(Order order);
+    void addOrder( Order order );
 
-    default void addOrder(List<Order> orders){}
+    default void addOrder( List<Order> orders ) {
+    }
 
-    default void addOrder(HashMap<String, Order> orders){}
+    default void addOrder( HashMap<String, Order> orders ) {
+    }
 
     List<Order> getAllOrders();
 
-    Order getOrder(String id);
+    Order getOrder( String id );
 
-    void removeOrder(String id);
+    void removeOrder( String id );
 
-    void removeOrders(Set<String> ids);
+    void removeOrders( Set<String> ids );
 
 }

@@ -38,22 +38,22 @@ class ShopServiceTest {
 
     @BeforeAll
     @DisplayName("Setup -> create products for productRepo")
-    static void setup(){
-        products.addAll(Set.of(
-                new Product("4260524580051", "Ettes Aufstrich - Curry Ananas - vegan", new BigDecimal("1.59")),
-                new Product("8076809572569", "\tgrünes Pesto Basilico vegan", new BigDecimal("3.75"))
-        ));
+    static void setup() {
+        products.addAll( Set.of(
+                new Product( "4260524580051", "Ettes Aufstrich - Curry Ananas - vegan", new BigDecimal( "1.59" ) ),
+                new Product( "8076809572569", "\tgrünes Pesto Basilico vegan", new BigDecimal( "3.75" ) )
+        ) );
 
-        for(Product p : products){
-            productIds.add(p.id());
+        for ( Product p : products ) {
+            productIds.add( p.id() );
         }
 
-        ProductRepo productRepo = new ProductRepo(products);
+        ProductRepo productRepo = new ProductRepo( products );
         OrderRepo orderRepo = new OrderListRepo();
         OrderRepo orderRepoMap = new OrderMapRepo();
 
-        shopService = new ShopService(productRepo, orderRepo);
-        shopServiceWithMap = new ShopService(productRepo, orderRepoMap);
+        shopService = new ShopService( productRepo, orderRepo );
+        shopServiceWithMap = new ShopService( productRepo, orderRepoMap );
     }
 
     @Nested
@@ -66,7 +66,7 @@ class ShopServiceTest {
 
             @Test
             @DisplayName("placeOrder -> should return null -> when called with invalid list of product ids")
-            void placeOrder_ShouldReturnNull_WhenCalledWithInvalidListOfProductIds(){
+            void placeOrder_ShouldReturnNull_WhenCalledWithInvalidListOfProductIds() {
                 Order actual = shopService.placeOrder(
                         List.of(
                                 "test-id",
@@ -74,28 +74,28 @@ class ShopServiceTest {
                         )
                 );
 
-                assertNull(actual);
+                assertNull( actual );
             }
 
             @Test
             @DisplayName("placeOrder -> should return order object -> when called with valid list of product ids")
-            void placeOrder_ShouldReturnOrderObject_WhenCalledWithValidListOfProductIds(){
+            void placeOrder_ShouldReturnOrderObject_WhenCalledWithValidListOfProductIds() {
                 Order actual = shopService.placeOrder(
                         productIds
                 );
 
-                assertNotNull(actual);
-                assertThat(actual.productIds()).containsAll(
+                assertNotNull( actual );
+                assertThat( actual.productIds() ).containsAll(
                         productIds
                 );
             }
 
             @Test
             @DisplayName("placeOrder -> should return null -> when called with empty list")
-            void placeOrder_ShouldReturnNull_WhenCalledWithEmptyList(){
-                Order actual = shopService.placeOrder(List.of());
+            void placeOrder_ShouldReturnNull_WhenCalledWithEmptyList() {
+                Order actual = shopService.placeOrder( List.of() );
 
-                assertNull(actual);
+                assertNull( actual );
             }
         }
 
@@ -105,39 +105,39 @@ class ShopServiceTest {
 
             @BeforeAll
             @DisplayName("Modifying the access modifier of productExists")
-            static void modifyMethodAccess(){
+            static void modifyMethodAccess() {
                 try {
-                    productExists = ShopService.class.getDeclaredMethod("productExists", String.class);
-                    productExists.setAccessible(true);
+                    productExists = ShopService.class.getDeclaredMethod( "productExists", String.class );
+                    productExists.setAccessible( true );
 
-                } catch (NoSuchMethodException | InaccessibleObjectException error){
-                    throw new RuntimeException(error);
+                } catch ( NoSuchMethodException | InaccessibleObjectException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
             @Test
             @DisplayName("productExists -> should return true -> when called with existing product")
-            void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct(){
+            void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct() {
                 try {
-                    boolean actual = (boolean) productExists.invoke(shopService, productIds.getFirst());
+                    boolean actual = ( boolean ) productExists.invoke( shopService, productIds.getFirst() );
 
-                    assertTrue(actual);
+                    assertTrue( actual );
 
-                } catch (IllegalAccessException | InvocationTargetException error) {
-                    throw new RuntimeException(error);
+                } catch ( IllegalAccessException | InvocationTargetException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
             @Test
             @DisplayName("productExists -> should return false -> when called with not existing product")
-            void productExists_ShouldReturnFalse_WhenCalledWithNotExistingProduct(){
+            void productExists_ShouldReturnFalse_WhenCalledWithNotExistingProduct() {
                 try {
-                    boolean actual = (boolean) productExists.invoke(shopService, "test-id");
+                    boolean actual = ( boolean ) productExists.invoke( shopService, "test-id" );
 
-                    assertFalse(actual);
+                    assertFalse( actual );
 
-                } catch (IllegalAccessException | InvocationTargetException error) {
-                    throw new RuntimeException(error);
+                } catch ( IllegalAccessException | InvocationTargetException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
@@ -149,31 +149,31 @@ class ShopServiceTest {
 
             @BeforeAll
             @DisplayName("Modifying the access modifier of getNewOrderId")
-            static void modifyMethodAccess(){
+            static void modifyMethodAccess() {
                 try {
-                    getNewOrderId = ShopService.class.getDeclaredMethod("getNewOrderId");
-                    getNewOrderId.setAccessible(true);
-                    resetOrderSequence = ShopService.class.getDeclaredMethod("resetOrderSequence");
-                    resetOrderSequence.setAccessible(true);
+                    getNewOrderId = ShopService.class.getDeclaredMethod( "getNewOrderId" );
+                    getNewOrderId.setAccessible( true );
+                    resetOrderSequence = ShopService.class.getDeclaredMethod( "resetOrderSequence" );
+                    resetOrderSequence.setAccessible( true );
 
-                } catch (NoSuchMethodException | InaccessibleObjectException error){
-                    throw new RuntimeException(error);
+                } catch ( NoSuchMethodException | InaccessibleObjectException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
             @Test
             @DisplayName("productExists -> should return true -> when called with existing product")
-            void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct(){
+            void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct() {
                 try {
-                    resetOrderSequence.invoke(shopService);
+                    resetOrderSequence.invoke( shopService );
 
                     String expected = "O001";
-                    String actual = (String) getNewOrderId.invoke(shopService);
+                    String actual = ( String ) getNewOrderId.invoke( shopService );
 
-                    assertEquals(expected, actual);
+                    assertEquals( expected, actual );
 
-                } catch (IllegalAccessException | InvocationTargetException error) {
-                    throw new RuntimeException(error);
+                } catch ( IllegalAccessException | InvocationTargetException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
@@ -191,7 +191,7 @@ class ShopServiceTest {
 
             @Test
             @DisplayName("placeOrder -> should return null -> when called with invalid list of product ids")
-            void placeOrder_ShouldReturnNull_WhenCalledWithInvalidListOfProductIds(){
+            void placeOrder_ShouldReturnNull_WhenCalledWithInvalidListOfProductIds() {
                 Order actual = shopServiceWithMap.placeOrder(
                         List.of(
                                 "test-id",
@@ -199,28 +199,28 @@ class ShopServiceTest {
                         )
                 );
 
-                assertNull(actual);
+                assertNull( actual );
             }
 
             @Test
             @DisplayName("placeOrder -> should return order object -> when called with valid list of product ids")
-            void placeOrder_ShouldReturnOrderObject_WhenCalledWithValidListOfProductIds(){
+            void placeOrder_ShouldReturnOrderObject_WhenCalledWithValidListOfProductIds() {
                 Order actual = shopServiceWithMap.placeOrder(
                         productIds
                 );
 
-                assertNotNull(actual);
-                assertThat(actual.productIds()).containsAll(
+                assertNotNull( actual );
+                assertThat( actual.productIds() ).containsAll(
                         productIds
                 );
             }
 
             @Test
             @DisplayName("placeOrder -> should return null -> when called with empty list")
-            void placeOrder_ShouldReturnNull_WhenCalledWithEmptyList(){
-                Order actual = shopServiceWithMap.placeOrder(List.of());
+            void placeOrder_ShouldReturnNull_WhenCalledWithEmptyList() {
+                Order actual = shopServiceWithMap.placeOrder( List.of() );
 
-                assertNull(actual);
+                assertNull( actual );
             }
         }
 
@@ -230,39 +230,39 @@ class ShopServiceTest {
 
             @BeforeAll
             @DisplayName("Modifying the access modifier of productExists")
-            static void modifyMethodAccess(){
+            static void modifyMethodAccess() {
                 try {
-                    productExists = ShopService.class.getDeclaredMethod("productExists", String.class);
-                    productExists.setAccessible(true);
+                    productExists = ShopService.class.getDeclaredMethod( "productExists", String.class );
+                    productExists.setAccessible( true );
 
-                } catch (NoSuchMethodException | InaccessibleObjectException error){
-                    throw new RuntimeException(error);
+                } catch ( NoSuchMethodException | InaccessibleObjectException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
             @Test
             @DisplayName("productExists -> should return true -> when called with existing product")
-            void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct(){
+            void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct() {
                 try {
-                    boolean actual = (boolean) productExists.invoke(shopServiceWithMap, productIds.getFirst());
+                    boolean actual = ( boolean ) productExists.invoke( shopServiceWithMap, productIds.getFirst() );
 
-                    assertTrue(actual);
+                    assertTrue( actual );
 
-                } catch (IllegalAccessException | InvocationTargetException error) {
-                    throw new RuntimeException(error);
+                } catch ( IllegalAccessException | InvocationTargetException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
             @Test
             @DisplayName("productExists -> should return false -> when called with not existing product")
-            void productExists_ShouldReturnFalse_WhenCalledWithNotExistingProduct(){
+            void productExists_ShouldReturnFalse_WhenCalledWithNotExistingProduct() {
                 try {
-                    boolean actual = (boolean) productExists.invoke(shopServiceWithMap, "test-id");
+                    boolean actual = ( boolean ) productExists.invoke( shopServiceWithMap, "test-id" );
 
-                    assertFalse(actual);
+                    assertFalse( actual );
 
-                } catch (IllegalAccessException | InvocationTargetException error) {
-                    throw new RuntimeException(error);
+                } catch ( IllegalAccessException | InvocationTargetException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
@@ -274,31 +274,31 @@ class ShopServiceTest {
 
             @BeforeAll
             @DisplayName("Modifying the access modifier of getNewOrderId")
-            static void modifyMethodAccess(){
+            static void modifyMethodAccess() {
                 try {
-                    getNewOrderId = ShopService.class.getDeclaredMethod("getNewOrderId");
-                    getNewOrderId.setAccessible(true);
-                    resetOrderSequence = ShopService.class.getDeclaredMethod("resetOrderSequence");
-                    resetOrderSequence.setAccessible(true);
+                    getNewOrderId = ShopService.class.getDeclaredMethod( "getNewOrderId" );
+                    getNewOrderId.setAccessible( true );
+                    resetOrderSequence = ShopService.class.getDeclaredMethod( "resetOrderSequence" );
+                    resetOrderSequence.setAccessible( true );
 
-                } catch (NoSuchMethodException | InaccessibleObjectException error){
-                    throw new RuntimeException(error);
+                } catch ( NoSuchMethodException | InaccessibleObjectException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 
             @Test
             @DisplayName("productExists -> should return true -> when called with existing product")
-            void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct(){
+            void productExists_ShouldReturnTrue_WhenCalledWithExistingProduct() {
                 try {
-                    resetOrderSequence.invoke(shopServiceWithMap);
+                    resetOrderSequence.invoke( shopServiceWithMap );
 
                     String expected = "O001";
-                    String actual = (String) getNewOrderId.invoke(shopServiceWithMap);
+                    String actual = ( String ) getNewOrderId.invoke( shopServiceWithMap );
 
-                    assertEquals(expected, actual);
+                    assertEquals( expected, actual );
 
-                } catch (IllegalAccessException | InvocationTargetException error) {
-                    throw new RuntimeException(error);
+                } catch ( IllegalAccessException | InvocationTargetException error ) {
+                    throw new RuntimeException( error );
                 }
             }
 

@@ -24,11 +24,11 @@ class OrderListRepoTest {
 
     @BeforeAll
     @DisplayName("Create order records")
-    static void setup(){
-        OrderListRepoTest.order = new Order("4005500087151",List.of("321323212321", "31231245234"));
+    static void setup() {
+        OrderListRepoTest.order = new Order( "4005500087151", List.of( "321323212321", "31231245234" ) );
 
-        for(int i=0; i < 10; i++){
-            orders.add(new Order("400550008715" + i,List.of("12312321" + i, "986934589" + i)));
+        for ( int i = 0; i < 10; i++ ) {
+            orders.add( new Order( "400550008715" + i, List.of( "12312321" + i, "986934589" + i ) ) );
         }
     }
 
@@ -38,37 +38,37 @@ class OrderListRepoTest {
 
         @Test
         @DisplayName("OrderListRepo -> should return empty order list -> when called without arguments")
-        void OrderListRepo_ShouldReturnEmptyOrderList_WhenCalledWithoutArguments(){
+        void OrderListRepo_ShouldReturnEmptyOrderList_WhenCalledWithoutArguments() {
             List<Order> expected = new ArrayList<>();
 
             OrderListRepo orderListRepo = new OrderListRepo();
 
             List<Order> actual = orderListRepo.getAllOrders();
 
-            assertEquals(expected, actual);
+            assertEquals( expected, actual );
         }
 
         @Test
         @DisplayName("OrderListRepo -> should return single order in orders list -> when called with single product")
-        void OrderListRepo_ShouldReturnOrderListWithSingleOrder_WhenCalledWithSingleOrder(){
+        void OrderListRepo_ShouldReturnOrderListWithSingleOrder_WhenCalledWithSingleOrder() {
             List<Order> expected = new ArrayList<>();
-            expected.add(order);
+            expected.add( order );
 
-            OrderListRepo orderListRepo = new OrderListRepo(order);
+            OrderListRepo orderListRepo = new OrderListRepo( order );
 
             List<Order> actual = orderListRepo.getAllOrders();
 
-            assertEquals(expected, actual);
+            assertEquals( expected, actual );
         }
 
         @Test
         @DisplayName("OrderListRepo -> should return order list -> when called with orders")
-        void OrderListRepo_ShouldReturnOrderList_WhenCalledWithOrders(){
-            OrderListRepo orderListRepo = new OrderListRepo(orders);
+        void OrderListRepo_ShouldReturnOrderList_WhenCalledWithOrders() {
+            OrderListRepo orderListRepo = new OrderListRepo( orders );
 
             List<Order> actual = orderListRepo.getAllOrders();
 
-            assertEquals(orders, actual);
+            assertEquals( orders, actual );
         }
 
     }
@@ -79,24 +79,24 @@ class OrderListRepoTest {
 
         @Test
         @DisplayName("addOrder -> should add single order to orders list -> when called with single order")
-        void addOrder_ShouldAddSingleOrderToOrderList_WhenCalledWithSingleOrder(){
+        void addOrder_ShouldAddSingleOrderToOrderList_WhenCalledWithSingleOrder() {
             OrderListRepo orderListRepo = new OrderListRepo();
 
-            List<Order> expected = List.of(order);
+            List<Order> expected = List.of( order );
 
-            orderListRepo.addOrder(order);
+            orderListRepo.addOrder( order );
 
-            assertEquals(expected, orderListRepo.getAllOrders());
+            assertEquals( expected, orderListRepo.getAllOrders() );
         }
 
         @Test
         @DisplayName("addOrder -> should add several order to orders list -> when called with order list")
-        void addOrder_ShouldAddSeveralOrderToOrderList_WhenCalledWithOrderList(){
+        void addOrder_ShouldAddSeveralOrderToOrderList_WhenCalledWithOrderList() {
             OrderListRepo orderListRepo = new OrderListRepo();
 
-            orderListRepo.addOrder(orders);
+            orderListRepo.addOrder( orders );
 
-            assertEquals(orders, orderListRepo.getAllOrders());
+            assertEquals( orders, orderListRepo.getAllOrders() );
         }
 
     }
@@ -107,33 +107,33 @@ class OrderListRepoTest {
 
         @Test
         @DisplayName("getOrder -> should return a single order -> when called with a valid id")
-        void getOrder_ShouldReturnASingleOrder_WhenCalledWitAValidId(){
-            OrderListRepo orderListRep = new OrderListRepo(order);
+        void getOrder_ShouldReturnASingleOrder_WhenCalledWitAValidId() {
+            OrderListRepo orderListRep = new OrderListRepo( order );
             String id = order.id();
 
-            Order p = orderListRep.getOrder(id);
+            Order p = orderListRep.getOrder( id );
 
-            assertEquals(p, order);
+            assertEquals( p, order );
         }
 
         @Test
         @DisplayName("getOrder -> should return null -> when called with an invalid id")
-        void getOrder_ShouldReturnNull_WhenCalledWitAnInvalidId(){
-            OrderListRepo orderListRep = new OrderListRepo(order);
+        void getOrder_ShouldReturnNull_WhenCalledWitAnInvalidId() {
+            OrderListRepo orderListRep = new OrderListRepo( order );
             String id = "DUMMYID";
 
-            Order p = orderListRep.getOrder(id);
+            Order p = orderListRep.getOrder( id );
 
-            assertNull(p);
+            assertNull( p );
         }
 
         @Test
         @DisplayName("getAllOrders -> should return a list of order -> when orders were added before")
-        void getAllOrders_ShouldReturnListOfOrders_WhenOrdersWereAddedBefore(){
-            OrderListRepo orderListRep = new OrderListRepo(orders);
+        void getAllOrders_ShouldReturnListOfOrders_WhenOrdersWereAddedBefore() {
+            OrderListRepo orderListRep = new OrderListRepo( orders );
 
-            assertFalse(orderListRep.getAllOrders().isEmpty());
-            assertEquals(orders, orderListRep.getAllOrders());
+            assertFalse( orderListRep.getAllOrders().isEmpty() );
+            assertEquals( orders, orderListRep.getAllOrders() );
         }
 
     }
@@ -144,46 +144,46 @@ class OrderListRepoTest {
 
         @Test
         @DisplayName("removeOrder -> should remove order from order list -> when called with a valid id")
-        void removeOrder_ShouldRemoveOrderFromOrderList_WhenCalledWitAValidId(){
-            OrderListRepo orderListRepo = new OrderListRepo(order);
-            orderListRepo.removeOrder(order.id());
+        void removeOrder_ShouldRemoveOrderFromOrderList_WhenCalledWitAValidId() {
+            OrderListRepo orderListRepo = new OrderListRepo( order );
+            orderListRepo.removeOrder( order.id() );
 
-            Order p = orderListRepo.getOrder(order.id());
-            assertTrue(orderListRepo.getAllOrders().isEmpty());
-            assertNull(p);
+            Order p = orderListRepo.getOrder( order.id() );
+            assertTrue( orderListRepo.getAllOrders().isEmpty() );
+            assertNull( p );
         }
 
         @Test
         @DisplayName("removeOrder -> should stay same list of orders -> when called with an invalid id")
-        void removeOrder_ShouldStaySameListOfOrders_WhenCalledWitAnInvalidId(){
-            OrderListRepo orderListRepo = new OrderListRepo(orders);
+        void removeOrder_ShouldStaySameListOfOrders_WhenCalledWitAnInvalidId() {
+            OrderListRepo orderListRepo = new OrderListRepo( orders );
             String id = "DUMMYID";
 
-            orderListRepo.removeOrder(id);
+            orderListRepo.removeOrder( id );
 
-            assertEquals(orders, orderListRepo.getAllOrders());
+            assertEquals( orders, orderListRepo.getAllOrders() );
         }
 
         @Test
         @DisplayName("removeOrders -> should stay same list of orders -> when called with invalid ids")
-        void removeOrders_ShouldStaySameListOfOrders_WhenCalledWithInvalidIds(){
-            OrderListRepo orderListRepo = new OrderListRepo(orders);
-            Set<String> orderIds = Set.of("Dummy1Id", "Dummy2Id");
+        void removeOrders_ShouldStaySameListOfOrders_WhenCalledWithInvalidIds() {
+            OrderListRepo orderListRepo = new OrderListRepo( orders );
+            Set<String> orderIds = Set.of( "Dummy1Id", "Dummy2Id" );
 
-            orderListRepo.removeOrders(orderIds);
+            orderListRepo.removeOrders( orderIds );
 
-            assertEquals(orders, orderListRepo.getAllOrders());
+            assertEquals( orders, orderListRepo.getAllOrders() );
         }
 
         @Test
         @DisplayName("removeOrders -> should remove orders from orders list -> when called with valid ids")
-        void removeOrders_ShouldRemoveOrdersFromOrdersList_WhenCalledWithValidIds(){
-            OrderListRepo orderListRepo = new OrderListRepo(order);
-            Set<String> orderIds = Set.of(order.id());
+        void removeOrders_ShouldRemoveOrdersFromOrdersList_WhenCalledWithValidIds() {
+            OrderListRepo orderListRepo = new OrderListRepo( order );
+            Set<String> orderIds = Set.of( order.id() );
 
-            orderListRepo.removeOrders(orderIds);
+            orderListRepo.removeOrders( orderIds );
 
-            assertTrue(orderListRepo.getAllOrders().isEmpty());
+            assertTrue( orderListRepo.getAllOrders().isEmpty() );
         }
 
     }
