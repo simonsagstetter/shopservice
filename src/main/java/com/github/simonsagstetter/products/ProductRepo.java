@@ -6,6 +6,7 @@ package com.github.simonsagstetter.products;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ProductRepo {
 
@@ -47,8 +48,8 @@ public class ProductRepo {
         }
     }
 
-    public void removeProducts(List<String> productIds){
-        for(String id: productIds){
+    public void removeProducts(Set<String> ids){
+        for(String id: ids){
             this.removeProduct(id);
         }
     }

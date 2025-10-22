@@ -54,8 +54,8 @@ public class OrderListRepo implements OrderRepo {
     }
 
     @Override
-    public void removeOrders(Set<String> orderIds){
-        for(String id : orderIds){
+    public void removeOrders(Set<String> ids){
+        for(String id : ids){
             this.removeOrder(id);
         }
     }

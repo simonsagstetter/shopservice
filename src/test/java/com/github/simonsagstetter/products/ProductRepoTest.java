@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -167,7 +168,7 @@ class ProductRepoTest {
         @DisplayName("removeProducts -> should stay same list of products -> when called with invalid ids")
         void removeProducts_ShouldStaySameListOfOrders_WhenCalledWithInvalidIds(){
             ProductRepo productRepo = new ProductRepo(products);
-            List<String> orderIds = List.of("Dummy1Id", "Dummy2Id");
+            Set<String> orderIds = Set.of("Dummy1Id", "Dummy2Id");
 
             productRepo.removeProducts(orderIds);
 
@@ -178,7 +179,7 @@ class ProductRepoTest {
         @DisplayName("removeProducts -> should remove products from products list -> when called with valid ids")
         void removeProducts_ShouldRemoveOrdersFromOrdersList_WhenCalledWithValidIds(){
             ProductRepo productRepo = new ProductRepo(product);
-            List<String> orderIds = List.of(product.id());
+            Set<String> orderIds = Set.of(product.id());
 
             productRepo.removeProducts(orderIds);
 
